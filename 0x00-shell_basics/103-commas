@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -alm -R .
+ls -al -m -D . ..
