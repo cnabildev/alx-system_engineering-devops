@@ -1,0 +1,2 @@
+# su
+switch user
