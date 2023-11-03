@@ -1,1 +1,1 @@
-# Command line for the win
+# Solutions to the command line challenge
