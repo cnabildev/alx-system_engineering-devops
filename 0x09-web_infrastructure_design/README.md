@@ -1,119 +1,195 @@
-#  0x09. Web infrastructure design
+# Project: 0x09. Web infrastructure design
 
-## Concepts
-       
- [DNS](https://alx-intranet.hbtn.io/concepts/12)                      
+You just released the advanced tasks of this project. Have fun!
 
-[Monitoring](https://alx-intranet.hbtn.io/concepts/13)                 
+DevOpsSysAdminweb infrastructure
 
-[Web Server](https://alx-intranet.hbtn.io/concepts/17)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lQNEW76KdYg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" data-dashlane-rid="ddc73f56ddf4d860" data-dashlane-frameid="10323"></iframe>
 
-[Network basics](https://alx-intranet.hbtn.io/concepts/33)
+## Resources
 
-[Load balancer](https://alx-intranet.hbtn.io/concepts/46)
+__Read or watch__:
 
-[Server](https://alx-intranet.hbtn.io/concepts/67)
+-   __Network basics__ concept page
+-   __Server__ concept page
+-   __Web server__ concept page
+-   __DNS__ concept page
+-   __Load balancer__ concept page
+-   __Monitoring__ concept page
+-   [What is a database](https://intranet.alxswe.com/rltoken/n3CdS3EA5l5psDDKbEhApA "What is a database")
+-   [What’s the difference between a web server and an app server?](https://intranet.alxswe.com/rltoken/0as4wDlFqyhLhf0f_gedcw "What's the difference between a web server and an app server?")
+-   [DNS record types](https://intranet.alxswe.com/rltoken/Pl3UoEfAO7K_jUKRLMmnAQ "DNS record types")
+-   [Single point of failure](https://intranet.alxswe.com/rltoken/uxpx2YhXs10TFLIDg78chA "Single point of failure")
+-   [How to avoid downtime when deploying new code](https://intranet.alxswe.com/rltoken/4ansLu2gtHnoFrNThqyObA "How to avoid downtime when deploying new code")
+-   [High availability cluster (active-active/active-passive)](https://intranet.alxswe.com/rltoken/TAJeVYy9U9iLaEDd6XkbRA "High availability cluster (active-active/active-passive)")
+-   [What is HTTPS](https://intranet.alxswe.com/rltoken/c0zs2MxrmxFLsCPOizxq6g "What is HTTPS")
+-   [What is a firewall](https://intranet.alxswe.com/rltoken/j6idMcUTyNEDj1oYDQFmUw "What is a firewall")
 
- [What is a database](https://searchdatamanagement.techtarget.com/definition/database)
- 
- [What’s the difference between a web server and an app server?](https://www.youtube.com/watch?v=S97eKyv2b9M)  
- 
- [DNS record types](https://pressable.com/?s=DNS&post_type=knowledgebase)
- 
- [Single point of failure](https://en.wikipedia.org/wiki/Single_point_of_failure)
- 
- [How to avoid downtime when deploying new code](https://softwareengineering.stackexchange.com/questions/35063/how-do-you-update-your-production-codebase-database-schema-without-causing-downt#answers-header)
- 
- [High availability cluster (active-active/active-passive)](https://docs.oracle.com/cd/E17904_01/core.1111/e10106/intro.htm#ASHIA712)
- 
- [What is HTTPS](https://www.instantssl.com/http-vs-https)
- 
- [What is a firewall](https://www.webopedia.com/definitions/firewall/)
- 
- [Application server vs web server](https://www.nginx.com/resources/glossary/application-server-vs-web-server/)
+## Learning Objectives
 
-##  Tasks 
+At the end of this project, you are expected to be able to [explain to anyone](https://intranet.alxswe.com/rltoken/FPJvEE-DRJDvmVTNWeFR8A "explain to anyone"), __without the help of Google__:
 
-##  0. Simple web stack
+### General
 
-##  Description
+-   You must be able to draw a diagram covering the web stack you built with the sysadmin/devops track projects
+-   You must be able to explain what each component is doing
+-   You must be able to explain system redundancy
+-   Know all the mentioned acronyms: LAMP, SPOF, QPS
 
-This is a simple web infrastructure that hosts a website that is reachable via `www.foobar.com`. There are no firewalls or SSL certificates for protecting the server's network. Each component (database, application server) has to share the resources (CPU, RAM, and SSD) provided by the server.
+### Copyright - Plagiarism
 
-## Specifics About This Infrastructure
+-   You are tasked to come up with solutions for the tasks below yourself to meet with the above learning objectives.
+-   You will not be able to meet the objectives of this or any following project by copying and pasting someone else’s work.
+-   You are not allowed to publish any content of this project.
+-   Any form of plagiarism is strictly forbidden and will result in removal from the program.
 
-+ What a server is.<br/>A server is a computer hardware or software that provides services to other computers, which are usually referred to as *clients*.
+## Requirements
 
-+ The role of the domain name.<br/>To provide a human-friendly alias for an IP Address. For example, the domain name `www.wikipedia.org` is easier to recognize and remember than `91.198.174.192`. The IP address and domain name alias is mapped in the Domain Name System (DNS)
+### General
 
-+ The type of DNS record `www` is in `www.foobar.com`.<br/>`www.foobar.com` uses an **A record**. This can be checked by running `dig www.foobar.com`.<br/>**Note:** the results might be different but for the infrastructure in this design, an **A** record is used.<br/>
-<i>Address Mapping record (A Record)—also known as a DNS host record, stores a hostname and its corresponding IPv4 address.</i>
+-   A `README.md` file, at the root of the folder of the project, is mandatory
+-   For each task, once you are done whiteboarding (on a whiteboard, piece of paper or software or your choice), take a picture/screenshot of your diagram
+-   This project will be manually reviewed:
+-   As each task is completed, the name of that task will turn green
+-   Upload a screenshot, showing that you completed the required levels, to any image hosting service (I personally use [imgur](https://intranet.alxswe.com/rltoken/m_O2HLsKrO1zg31LMcLOGQ "imgur") but feel free to use anything you want).
+-   For the following tasks, insert the link from of your screenshot into the answer file
+-   After pushing your answer file to GitHub, insert the GitHub file link into the URL box
+-   You will also have to whiteboard each task in front of a mentor, staff or student - no computer or notes will be allowed during the whiteboarding session
+-   Focus on what you are being asked:
+-   Cover what the requirements mention, we will explore details in a later project
+-   Keep in mind that you will have 30 minutes to perform the exercise, you will get points for what is asked in requirements
+-   Similarly in a job interview, you should answer what the interviewer asked for, be careful about being too verbose - always ask the interviewer if going into details is necessary - speaking too much can play against you
+-   In this project, again, avoid going in details if not asked
 
-+ The role of the web server.<br/>The web server is a software/hardware that accepts requests via HTTP or secure HTTP (HTTPS) and responds with the content of the requested resource or an error messsage.
+### Quiz questions
 
-+ The role of the application server.<br/>To install, operate and host applications and associated services for end users, IT services and organizations and facilitates the hosting and delivery of high-end consumer or business applications
+__Great!__ You've completed the quiz successfully! Keep going! (Show quiz)
 
-+ The role of the database.<br/>To maintain a collection of organized information that can easily be accessed, managed and updated
+## Tasks
 
-+ What the server uses to communicate with the client (computer of the user requesting the website).<br/>Communication between the client and the server occurs over the internet network through the TCP/IP protocol suite.
+### 0\. Simple web stack
 
-## Issues With This Infrastructure
+mandatory
 
-+ There are multiple SPOF (Single Point Of Failure) in this infrastructure.<br/>For example, if the MySQL database server is down, the entire site would be down.
+A lot of websites are powered by simple web infrastructure, a lot of time it is composed of a single server with a [LAMP stack](https://intranet.alxswe.com/rltoken/YVDX0XsC6XHp0nmezvT9vQ "LAMP stack").
 
-+ Downtime when maintenance needed.<br/>When we need to run some maintenance checks on any component, they have to be put down or the server has to be turned off. Since there's only one server, the website would be experiencing a downtime.
+On a whiteboard, design a one server web infrastructure that hosts the website that is reachable via `www.foobar.com`. Start your explanation by having a user wanting to access your website.
 
-+ Cannot scale if there's too much incoming traffic.<br/>It would be hard to scale this infrastructure becauses one server contains the required components. The server can quickly run out of resources or slow down when it starts receiving a lot of requests.
+Requirements:
 
-# 1: Distributed Web Infrastructure
-## Description
+-   You must use:
+    -   1 server
+    -   1 web server (Nginx)
+    -   1 application server
+    -   1 application files (your code base)
+    -   1 database (MySQL)
+    -   1 domain name `foobar.com` configured with a `www` record that points to your server IP `8.8.8.8`
+-   You must be able to explain some specifics about this infrastructure:
+    -   What is a server
+    -   What is the role of the domain name
+    -   What type of DNS record `www` is in `www.foobar.com`
+    -   What is the role of the web server
+    -   What is the role of the application server
+    -   What is the role of the database
+    -   What is the server using to communicate with the computer of the user requesting the website
+-   You must be able to explain what the issues are with this infrastructure:
+    -   SPOF
+    -   Downtime when maintenance needed (like deploying new code web server needs to be restarted)
+    -   Cannot scale if too much incoming traffic
 
-This is a distributed web infrastructure that atttempts to reduce the traffic to the primary server by distributing some of the load to a replica server with the aid of a server responsible for balancing the load between the two servers (primary and replica).
+Please, remember that everything must be written in English to further your technical ability in a variety of settings.
 
-## Specifics About This Infrastructure
+__Repo:__
 
-+ The distribution algorithm the load balancer is configured with and how it works.<br/>The HAProxy load balancer is configured with the *Round Robin* distribution algorithm. This algorithm works by using each server behind the load balancer in turns, according to their weights. It’s also probably the smoothest and most fair algorithm as the servers’ processing time stays equally distributed. As a dynamic algorithm, *Round Robin* allows server weights to be adjusted on the go.
-+ The setup enabled by the load-balancer.<br/>The HAProxy load-balancer is enabling an *Active-Passive* setup rather than an *Active-Active* setup. In an *Active-Active* setup, the load balancer distributes workloads across all nodes in order to prevent any single node from getting overloaded. Because there are more nodes available to serve, there will also be a marked improvement in throughput and response times. On the other hand, in an *Active-Passive* setup, not all nodes are going to be active (capable of receiving workloads at all times). In the case of two nodes, for example, if the first node is already active, the second node must be passive or on standby. The second or the next passive node can become an active node if the preceding node is inactive.
-+ How a database *Primary-Replica* (*Master-Slave*) cluster works.<br/>A *Primary-Replica* setup configures one server to act as the *Primary* server and the other server to act as a *Replica* of the *Primary* server. However, the *Primary* server is capable of performing read/write requests whilst the *Replica* server is only capable of performing read requests. Data is synchronized between the *Primary* and *Replica* servers whenever the *Primary* server executes a write operation.
-+ The difference between the *Primary* node and the *Replica* node in regard to the application.<br/>The *Primary* node is responsible for all the write operations the site needs whilst the *Replica* node is capable of processing read operations, which decreases the read traffic to the *Primary* node.
+-   GitHub repository: `alx-system_engineering-devops`
+-   Directory: `0x09-web_infrastructure_design`
+-   File: `0-simple_web_stack`
 
-## Issues With This Infrastructure
+### 1\. Distributed web infrastructure
 
-+ There are multiple SPOF (Single Point Of Failure).<br/>For example, if the Primary MySQL database server is down, the entire site would be unable to make changes to the site (including adding or removing users). The server containing the load balancer and the application server connecting to the primary database server are also SPOFs.
-+ Security issues.<br/>The data transmitted over the network isn't encrypted using an SSL certificate so hackers can spy on the network. There is no way of blocking unauthorized IPs since there's no firewall installed on any server.
-+ No monitoring.<br/>We have no way of knowing the status of each server since they're not being monitored.
+mandatory
 
-# 2: Secured and Monitored Web Infrastructure
+On a whiteboard, design a three server web infrastructure that hosts the website `www.foobar.com`.
 
-## Description
+Requirements:
 
-This is a 3-server web infrastructure that is secured, monitored, and serves encrypted traffic.
+-   You must add:
+    -   2 servers
+    -   1 web server (Nginx)
+    -   1 application server
+    -   1 load-balancer (HAproxy)
+    -   1 set of application files (your code base)
+    -   1 database (MySQL)
+-   You must be able to explain some specifics about this infrastructure:
+    -   For every additional element, why you are adding it
+    -   What distribution algorithm your load balancer is configured with and how it works
+    -   Is your load-balancer enabling an Active-Active or Active-Passive setup, explain the difference between both
+    -   How a database Primary-Replica (Master-Slave) cluster works
+    -   What is the difference between the Primary node and the Replica node in regard to the application
+-   You must be able to explain what the issues are with this infrastructure:
+    -   Where are SPOF
+    -   Security issues (no firewall, no HTTPS)
+    -   No monitoring
 
-## Specifics About This Infrastructure
+Please, remember that everything must be written in English to further your technical ability in a variety of settings.
 
-+ The purpose of the firewalls.<br/>The firewalls are for protecting the network (web servers, anyway) from unwanted and unauthorized users by acting as an intermediary between the internal network and the external network and blocking the incoming traffic matching the aforementioned criteria. 
-+ The purpose of the SSL certificate.<br/>The SSL certificate is for encrypting the traffic between the web servers and the external network to prevent man-in-the-middle attacks (MITM) and network sniffers from sniffing the traffic which could expose valuable information. The SSL certs ensure privacy, integrity, and identification.
-+ The purpose of the monitoring clients.<br/>The monitoring clients are for monitoring the servers and the external network. They analyse the performance and operations of the servers, measure the overall health, and alert the administrators if the servers are not performing as expected. The monitoring tool observes the servers and provides key metrics about the servers' operations to the administrators. It automatically tests the accessibility of the servers, measures response time, and alerts for errors such as corrupt/missing files, security vulnerabilities/violations, and many other issues. 
+__Repo:__
 
-## Issues With This Infrastructure
+-   GitHub repository: `alx-system_engineering-devops`
+-   Directory: `0x09-web_infrastructure_design`
+-   File: `1-distributed_web_infrastructure`
 
-+ Terminating SSL at the load balancer level would leave the traffic between the load balancer and the web servers unencrypted.
-+ Having one MySQL server is an issue because it is not scalable and can act as a single point of failure for the web infrastructure.
-+ Having servers with all the same components would make the components contend for resources on the server like CPU, Memory, I/O, etc., which can lead to poor performance and also make it difficult to locate the source of the problem. A setup such as this is not easily scalable. 
+### 2\. Secured and monitored web infrastructure
 
-# 3: Scaled Up Web Infrastructure
-## Description
+mandatory
 
-This web infrastructure is a scaled up version of the infrastructure described Secured and Monitored Web Infrastructure. In this version, all SPOFs have been removed and each of the major components (web server, application server, and database servers) have been moved to separate GNU/Linux servers. The SSL protection isn't terminated at the load-balancer and each server's network is protected with a firewall and they're also monitored.
+On a whiteboard, design a three server web infrastructure that hosts the website `www.foobar.com`, it must be secured, serve encrypted traffic, and be monitored.
 
-## Specifics About This Infrastructure
+Requirements:
 
-+ The addition of a firewall between each server.<br/>This protects each server from unwanted and unauthorized users rather than protecting a single server.
+-   You must add:
+    -   3 firewalls
+    -   1 SSL certificate to serve `www.foobar.com` over HTTPS
+    -   3 monitoring clients (data collector for Sumologic or other monitoring services)
+-   You must be able to explain some specifics about this infrastructure:
+    -   For every additional element, why you are adding it
+    -   What are firewalls for
+    -   Why is the traffic served over HTTPS
+    -   What monitoring is used for
+    -   How the monitoring tool is collecting data
+    -   Explain what to do if you want to monitor your web server QPS
+-   You must be able to explain what the issues are with this infrastructure:
+    -   Why terminating SSL at the load balancer level is an issue
+    -   Why having only one MySQL server capable of accepting writes is an issue
+    -   Why having servers with all the same components (database, web server and application server) might be a problem
 
-## Issues With This Infrastructure
+Please, remember that everything must be written in English to further your technical ability in a variety of settings.
 
-+ High maintenance costs.<br/>Moving each of the major components to its own server, means that more servers would have to be bought and the company's electricity bill would rise along with the introduction of new servers. Some of the company's funds would have to be used to buy the servers and pay for the electricity consumption needed to keep the servers (including the new and old ones) running.
+__Repo:__
 
-##  Author
+-   GitHub repository: `alx-system_engineering-devops`
+-   Directory: `0x09-web_infrastructure_design`
+-   File: `2-secured_and_monitored_web_infrastructure`
 
-###  Yonas Leykun
+Readme
+
+-   [Application server vs web server](https://intranet.alxswe.com/rltoken/toFi_SdFHyi2MaELB8ekqw "Application server vs web server")
+
+Requirements:
+
+-   You must add:
+    -   1 server
+    -   1 load-balancer (HAproxy) configured as cluster with the other one
+    -   Split components (web server, application server, database) with their own server
+-   You must be able to explain some specifics about this infrastructure:
+    -   For every additional element, why you are adding it
+
+Please, remember that everything must be written in English to further your technical ability in a variety of settings.
+
+#### Add URLs here:
+
+__Repo:__
+
+-   GitHub repository: `alx-system_engineering-devops`
+-   Directory: `0x09-web_infrastructure_design`
+-   File: `3-scale_up`
