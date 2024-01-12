@@ -59,7 +59,7 @@ frontend www-https
 
 backend www-backend
         balance roundrobin
-        redirect scheme https code 301 if !{ ssl_fc }
+        redirect scheme https if !{ ssl_fc }
         server 338-web-01 35.229.54.225:80 check
         server 338-web-02 35.231.225.251:80 check
 
