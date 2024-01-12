@@ -1,63 +1,21 @@
 # Load balancer
-![load_balancer](https://miro.medium.com/max/720/0*CCK15OF3DizmOITk)
 
-> Let’s improve our web stack so that there is redundancy for our web servers. This will allow us to be able to accept more traffic by doubling the number of web servers, and to make our infrastructure more reliable. If one web server fails, we will still have a second one to handle requests.
+In this project, I continued to build up the configuration of the web server
+issued in project 0x0B. I was issued two additional servers, one to replicate
+the Nginx configuration of my original server, and another to set up an HAproxy
+load balancer on to manage both web servers.
 
-For this project, you will need to write Bash scripts to automate your work. All scripts must be designed to configure a brand new Ubuntu server to match the task requirements.
+## Tasks :page_with_curl:
 
-## Concepts
+* **0. Double the number of webservers**
+  * [0-custom_http_response_header](./0-custom_http_response-header): Bash
+  script that installs and configures Nginx on a server with a custom HTTP
+  response header.
+    * The name of the HTTP header is `X-Served-By`.
+    * The value of the HTTP header is the hostname of the server.
 
-- HTTP Header
-- Debian/UbuntuHAProxy Packages
-- Introduction to Load Balancing.
-
-## Requirements
-
-- Allowed editors: `vi`, `vim`, `emacs`
-- All your files will be interpreted on `Ubuntu 16.04 LTS`
-- All your files should end with a new line
-- A __README.md__ file, at the root of the folder of the project, is mandatory
-- All your Bash script files __must be executable__
-- Your Bash script must pass `Shellcheck (version 0.3.7)` without any error
-- The first line of all your Bash scripts should be exactly `#!/usr/bin/env bash`
-- The second line of all your Bash scripts should be a comment explaining what is the script doing.
-
-## Installing HAProxy and configuring HAProxy
-
-```bash
-
-$ sudo apt-get install -y haproxy=1.6.\*
-
-$ sudo vi /etc/haproxy/haproxy.cfg
-# Add the below code to the file opened using vi editor
-frontend sammykingx.tech
-        bind 0:80
-	mode http
-        default_backend web_servers
-
-backend web_servers
-        balance roundrobin
-        server 64820-web-01 100.26.152.157:80
-        server 64820-web-02 52.86.102.6:80
-~
-~
-:wq(to save and exit)
---------------- or ----------------------- 
-$ echo '
-frontend sammykingx.tech
-        bind 0:80
-	mode http
-        default_backend web_servers
-
-backend web_servers
-        balance roundrobin
-        server 64820-web-01 100.26.152.157:80
-        server 64820-web-02 52.86.102.6:80
-' >> /etc/haproxy/haproxy.cfg
-
-$ service haproxy restart
-
-# git clone this repo on your terminal and run the file
-# install_haproxy_safely or 1-install_load_balancer to 
-# configure yours on a fly.
-```
+* **1. Install your load balancer**
+  * [1-install_load_balancer](./1-install_load_balancer): Bash script that
+  installs and configures HAproxy version 1.5 on a server.
+    * Enables management via the init script.
+    * Requests are distributed using a round-robin algorithm.
