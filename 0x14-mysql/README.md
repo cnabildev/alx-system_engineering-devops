@@ -1,22 +1,20 @@
-# Mysql
+# 0x14-mysql
 
-This project involved learning how to configure database servers in a
-primary-replica model. I configured the two servers provided to me by
-ALX in a MySQL primary-replica setup with a dummy database, and wrote
-a Bash script to automate generation of database backups.
+## Description
 
-## Tasks :page_with_curl:
+This projects deals with understanding and setting up Primary/Replica clusters with MySQL.
 
-* [4-mysql_configuration_primary](./4-mysql_configuration_primary): The MySQL
-`my.conf` configuration file used to set up my first server as a primary database
-server on the database `tyrell_corp`.
+## Mandatory Tasks
 
-* [4-mysql_configuration_replica](./4-mysql_configuration_replica): The MySQL
-`my.conf` configuration file used to set up my second server as the replica
-database server on the database `tyrell_corp`.
+| Files | Description |
+| ----- | ----------- |
+| 0-mysql_configuration_primary | Configuration file for the primary MySQL database |
+| 0-mysql_configuration_replica | Configuration file for the replica MySQL database |
+| 1-mysql_backup | Generates a MySQL dump and creates a compressed archive out of it |
 
-* [5-mysql_backup](./5-mysql_backup): Bash script that generates a compressed
-`tar.gz` archive from a MySQL dump.
-  * Usage: `./5-mysql_backup <MySQL root password>`
-  * Generates a dump containing all MySQL databases on the root server.
-  * Names the resulting tar archive in the format `day-month-year.tar.gz`.
+
+## Authors :black_nib:
+
+- [Esteban De La Hoz](https://www.linkedin.com/in/esteban-de-la-hoz-romero-b6270017b/) | [Twitter](https://twitter.com/Esteban18911) | [GitHub](https://github.com/Esteban18911)
+
+
