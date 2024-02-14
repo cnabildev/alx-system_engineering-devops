@@ -4,6 +4,7 @@ Function to retrieve the number of subscribers for a given subreddit using the R
 """
 
 import requests
+import sys
 
 def number_of_subscribers(subreddit):
     """
@@ -31,8 +32,8 @@ def number_of_subscribers(subreddit):
         return 0
 
 if __name__ == "__main__":
-    import sys
     if len(sys.argv) < 2:
         print("Please pass an argument for the subreddit to search.")
-    else:
-        print("{:d}".format(number_of_subscribers(sys.argv[1])))
+        sys.exit(1)
+
+    print("{:d}".format(number_of_subscribers(sys.argv[1])))
