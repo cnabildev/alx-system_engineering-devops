@@ -1,14 +1,31 @@
-# Firewall
+# :shell: 0x13 - Firewall :shell:
 
-In this project, I used `ufw` to configure firewalls on my issued web servers.
+In this project I will be configuring a firewall for my servers. I will be using `ufw` firewall software.
 
-## Tasks :page_with_curl:
+## :running: Getting Started
 
-* **0. Block all incoming traffic but**
-  * [0-block_all_incoming_traffic_but](./0-block_all_incoming_traffic_but): Bash
-  script that installs a `ufw` firewall to block all incoming traffic except for
-  ports `22`, `443` and `80` on a web server.
+* [Ubuntu 14.04 LTS](http://releases.ubuntu.com/14.04/) - Operating system reqd.
 
-* **1. Port forwarding**
-  * [100-port_forwarding](./100-port_forwarding): `ufw` configuration file that
-  configures a firewall to redirect port `8080/TCP` to port `80/TCP`.
+## :warning: Prerequisites
+
+* Must have `git` installed
+
+* Must have repository cloned
+
+
+```
+$ sudo apt-get install git
+```
+
+## :blue_book: Authors
+* **Bennett Dixon** - [@BennettDixon](https://github.com/BennettDixon)
+
+## :mag: License
+
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/BennettDixon/holberton-system_engineering-devops/blob/master/LICENSE.md) file for details
+
+
+
+## :mega: Acknowledgments
+
+* Holberton School (providing guidance)
