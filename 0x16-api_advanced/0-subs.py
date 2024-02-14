@@ -1,20 +1,35 @@
 #!/usr/bin/python3
-"""Function to query subscribers on a given Reddit subreddit."""
+"""
+Function to retrieve the number of subscribers for a given subreddit using the Reddit API.
+"""
 
 import requests
 
 def number_of_subscribers(subreddit):
+    """
+    Retrieve the number of subscribers for a given subreddit.
+
+    Args:
+        subreddit (str): The name of the subreddit.
+
+    Returns:
+        int: The number of subscribers for the subreddit. Returns 0 if the subreddit is invalid.
+    """
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
     headers = {'User-Agent': 'Mozilla/5.0'}
-    response = requests.get(url, headers=headers)
 
-    if response.status_code == 200:
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()  # Raise an exception for 4xx or 5xx status codes
         data = response.json()
         return data['data']['subscribers']
-    else:
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data: {e}")
+        return 0
+    except (KeyError, TypeError):
+        print("Error: Invalid subreddit or unexpected response format.")
         return 0
 
-# Testing the function
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 2:
