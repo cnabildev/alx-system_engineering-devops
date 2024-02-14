@@ -1,38 +1,33 @@
 #!/usr/bin/python3
-""" Function that queries the Reddit API and prints
-    the top ten hot posts of a subreddit
+
 """
-import requests
+prints the titles of the first 10 hot posts listed for a given subreddit
+"""
+
+from requests import get
 
 
 def top_ten(subreddit):
-    """ Queries Reddit API for top ten hot posts of a subreddit """
+    """
+    function that queries the Reddit API and prints the titles of the first
+    10 hot posts listed for a given subreddit
+    """
 
-    # Set user agent in headers
-    headers = {'User-Agent': 'Mozilla/5.0'}
+    if subreddit is None or not isinstance(subreddit, str):
+        print("None")
 
-    # Set parameters for the API request
+    user_agent = {'User-agent': 'Google Chrome Version 81.0.4044.129'}
     params = {'limit': 10}
+    url = 'https://www.reddit.com/r/{}/hot/.json'.format(subreddit)
 
-    # Construct the API URL
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    response = get(url, headers=user_agent, params=params)
+    results = response.json()
 
     try:
-        # Make the API request
-        response = requests.get(url, headers=headers, params=params, timeout=5)
+        my_data = results.get('data').get('children')
 
-        # Check if the request was successful (status code 200)
-        response.raise_for_status()
+        for i in my_data:
+            print(i.get('data').get('title'))
 
-        # Extract the list of hot posts from the JSON response
-        data = response.json().get('data', {})
-        hot_posts = data.get('children', [])
-
-        if not hot_posts:
-            print(f"No hot posts found in subreddit '{subreddit}'.")
-        else:
-            for post in hot_posts:
-                print(post['data']['title'])
-
-    except requests.RequestException as e:
-        print(f"Error during API request: {e}")
+    except Exception:
+        print("None")
