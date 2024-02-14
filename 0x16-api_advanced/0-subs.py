@@ -1,39 +1,27 @@
 #!/usr/bin/python3
 """
-Function to retrieve the number of subscribers for a given subreddit using the Reddit API.
+number of subscribers for a given subreddit
 """
 
-import requests
-import sys
+from requests import get
+
 
 def number_of_subscribers(subreddit):
     """
-    Retrieve the number of subscribers for a given subreddit.
-
-    Args:
-        subreddit (str): The name of the subreddit.
-
-    Returns:
-        int: The number of subscribers for the subreddit. Returns 0 if the subreddit is invalid.
+    function that queries the Reddit API and returns the number of subscribers
+    (not active users, total subscribers) for a given subreddit.
     """
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': 'Mozilla/5.0'}
+
+    if subreddit is None or not isinstance(subreddit, str):
+        return 0
+
+    user_agent = {'User-agent': 'Google Chrome Version 81.0.4044.129'}
+    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
+    response = get(url, headers=user_agent)
+    results = response.json()
 
     try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()  # Raise an exception for 4xx or 5xx status codes
-        data = response.json()
-        return data['data']['subscribers']
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
-        return 0
-    except (KeyError, TypeError):
-        print("Error: Invalid subreddit or unexpected response format.")
-        return 0
+        return results.get('data').get('subscribers')
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Please pass an argument for the subreddit to search.")
-        sys.exit(1)
-
-    print("{:d}".format(number_of_subscribers(sys.argv[1])))
+    except Exception:
+        return 0
