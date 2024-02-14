@@ -1,65 +1,43 @@
-# Postmortem
+POSTMORTEM
 
-Upon the release of ALX's System Engineering & DevOps project 0x19,
-approximately 06:00 West African Time (WAT) here in Nigeria, an outage occurred on an isolated
-Ubuntu 14.04 container running an Apache web server. GET requests on the server led to
-`500 Internal Server Error`'s, when the expected response was an HTML file defining a
-simple Holberton WordPress site.
+Start : 04/11/2023, 1:AM end : 04/11/2023, 4:AM
 
-## Debugging Process
+IMPACT:
 
-Bug debugger Brennan (BDB... as in my actual initials... made that up on the spot, pretty
-good, huh?) encountered the issue upon opening the project and being, well, instructed to
-address it, roughly 19:20 PST. He promptly proceeded to undergo solving the problem.
+What service was down/slow? All the application running on PHP crashed during this time lapse. What were users experiencing? Users were unable to connect into their accounts , those who were already connected were unable to send any requests (messages) How many % of the users were affected? Almost 100% of the users have been affected by this downtime error. what was the root cause The root cause of the error is an update made into production environment while some methods were still dependent to previous development stack (PHP 7, apache 5)
 
-1. Checked running processes using `ps aux`. Two `apache2` processes - `root` and `www-data` -
-were properly running.
+TIMELINE:
 
-2. Looked in the `sites-available` folder of the `/etc/apache2/` directory. Determined that
-the web server was serving content located in `/var/www/html/`.
+When was the issue detected The issue has been detected the 03/11/2023 at 2:0 AM How was the issue detected The issue was detected via the application deployment log which was displaying dependencies alert.
 
-3. In one terminal, ran `strace` on the PID of the `root` Apache process. In another, curled
-the server. Expected great things... only to be disappointed. `strace` gave no useful
-information.
+ACTIONS TAKEN:
 
-4. Repeated step 3, except on the PID of the `www-data` process. Kept expectations lower this
-time... but was rewarded! `strace` revelead an `-1 ENOENT (No such file or directory)` error
-occurring upon an attempt to access the file `/var/www/html/wp-includes/class-wp-locale.phpp`.
+In order to solve the issue, we proceeded to a rollback of the previous version application development state.
 
-5. Looked through files in the `/var/www/html/` directory one-by-one, using Vim pattern
-matching to try and locate the erroneous `.phpp` file extension. Located it in the
-`wp-settings.php` file. (Line 137, `require_once( ABSPATH . WPINC . '/class-wp-locale.php' );`).
+Misleading investigation/debugging paths that were taken;
 
-6. Removed the trailing `p` from the line.
+We first tried to convert methods and variables concerned to the new version which has led to complications.
 
-7. Tested another `curl` on the server. 200 A-ok!
+Which team/individuals;
 
-8. Wrote a Puppet manifest to automate fixing of the error.
+The incident escalated to developers team.
 
-## Summation
+How the incident was resolved;
 
-In short, a typo. Gotta love'em. In full, the WordPress app was encountering a critical
-error in `wp-settings.php` when tyring to load the file `class-wp-locale.phpp`. The correct
-file name, located in the `wp-content` directory of the application folder, was
-`class-wp-locale.php`.
+Incident was resolved via rollback on the server to the previous application state. It made new users lose their accounts but it was the best solution.
 
-Patch involved a simple fix on the typo, removing the trailing `p`.
+Root cause and resolution;
 
-## Prevention
+What was causing the issue was because Someone tried to upgrade his local development stack onto the next version but unfortunately he turned up to be upgrading the overall production environment . His error passed without devOps noticing it then the clients started facing errors to connect or send requests using the methods concerned by the upgrade.
 
-This outage was not a web server error, but an application error. To prevent such outages
-moving forward, please keep the following in mind.
+How the issue was fixed;
 
-* Test! Test test test. Test the application before deploying. This error would have arisen
-and could have been addressed earlier had the app been tested.
+As explained earlier, the issue has been fixed via a complete rollback of the application including data to the previous state. To be more accurate, we have automated a backup for the application each day at 23:59 PM.
 
-* Status monitoring. Enable some uptime-monitoring service such as
-[UptimeRobot](./https://uptimerobot.com/) to alert instantly upon outage of the website.
+Corrective and preventative measures:
 
-Note that in response to this error, I wrote a Puppet manifest
-[0-strace_is_your_friend.pp](https://github.com/bdbaraban/holberton-system_engineering-devops/blob/master/0x17-web_stack_debugging_3/0-strace_is_your_friend.pp)
-to automate fixing of any such identitical errors should they occur in the future. The manifest
-replaces any `phpp` extensions in the file `/var/www/html/wp-settings.php` with `php`.
+We have Set developers' local environment with docker containers so they can do whatever they want without affecting the global system.
 
-But of course, it will never occur again, because we're programmers, and we never make
-errors! :wink:
+Ways to address the issue;
+
+Read log files Fix logs where error has been shown Locate concerned files Identify the current error (“deprecated and unused methods”) message Tried to update the methods whereas users were deferred on the backup server from the app file of 01:02 reset the whole app state to 01/02￼Enter
