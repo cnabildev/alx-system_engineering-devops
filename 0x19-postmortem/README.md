@@ -1,43 +1,39 @@
-POSTMORTEM
+# Postmortem
 
-Start : 04/11/2023, 1:AM end : 04/11/2023, 4:AM
+**Issue Summary:**
 
-IMPACT:
+- **Duration:** February 14, 2024, from 10:00 AM to 12:30 PM (UTC-5).
+- **Impact:** The main web application was completely inaccessible for all users, affecting approximately 80% of our customer base.
+- **Root Cause:** A misconfiguration in the load balancer settings led to an overload of traffic to one of the application servers, causing it to crash and subsequently disrupt the entire service.
 
-What service was down/slow? All the application running on PHP crashed during this time lapse. What were users experiencing? Users were unable to connect into their accounts , those who were already connected were unable to send any requests (messages) How many % of the users were affected? Almost 100% of the users have been affected by this downtime error. what was the root cause The root cause of the error is an update made into production environment while some methods were still dependent to previous development stack (PHP 7, apache 5)
+**Timeline:**
 
-TIMELINE:
+- **10:00 AM:** Issue detected through a surge in error rate alerts on the monitoring dashboard.
+- **10:05 AM:** Engineering team notified of the outage by the monitoring system.
+- **10:10 AM:** Initial investigation focused on database performance due to recent updates.
+- **10:30 AM:** Misleading assumption made that recent code changes might have introduced a bug.
+- **10:45 AM:** Incident escalated to the infrastructure team for further investigation.
+- **11:00 AM:** Load balancer logs reviewed, revealing unusual traffic patterns.
+- **11:15 AM:** Load balancer configuration checked and identified misconfigured settings.
+- **12:00 PM:** Load balancer configuration corrected to distribute traffic evenly across application servers.
+- **12:30 PM:** Service fully restored after load balancer configuration fix.
 
-When was the issue detected The issue has been detected the 03/11/2023 at 2:0 AM How was the issue detected The issue was detected via the application deployment log which was displaying dependencies alert.
+**Root Cause and Resolution:**
 
-ACTIONS TAKEN:
+The root cause of the outage was traced to a misconfiguration in the load balancer settings, causing an imbalance in traffic distribution. Specifically, one of the application servers was overwhelmed with traffic, leading to its failure and subsequent service disruption.
 
-In order to solve the issue, we proceeded to a rollback of the previous version application development state.
+To resolve the issue, the misconfigured settings in the load balancer were corrected to ensure balanced traffic distribution across all application servers. This prevented overloading of any individual server and restored normal service functionality.
 
-Misleading investigation/debugging paths that were taken;
+**Corrective and Preventative Measures:**
 
-We first tried to convert methods and variables concerned to the new version which has led to complications.
+- **Improvements/Fixes:**
+  1. Implement automated checks for load balancer configuration consistency to catch misconfigurations before they cause service disruptions.
+  2. Enhance monitoring alerts to provide more detailed insights into traffic patterns and server performance.
+  3. Conduct regular load testing to identify potential weaknesses in the infrastructure before they impact production environments.
 
-Which team/individuals;
+- **Tasks to Address the Issue:**
+  1. Develop and implement automated load balancer configuration validation scripts.
+  2. Update monitoring system to include more granular metrics for traffic analysis.
+  3. Schedule regular load testing exercises to assess system scalability and resilience.
 
-The incident escalated to developers team.
-
-How the incident was resolved;
-
-Incident was resolved via rollback on the server to the previous application state. It made new users lose their accounts but it was the best solution.
-
-Root cause and resolution;
-
-What was causing the issue was because Someone tried to upgrade his local development stack onto the next version but unfortunately he turned up to be upgrading the overall production environment . His error passed without devOps noticing it then the clients started facing errors to connect or send requests using the methods concerned by the upgrade.
-
-How the issue was fixed;
-
-As explained earlier, the issue has been fixed via a complete rollback of the application including data to the previous state. To be more accurate, we have automated a backup for the application each day at 23:59 PM.
-
-Corrective and preventative measures:
-
-We have Set developers' local environment with docker containers so they can do whatever they want without affecting the global system.
-
-Ways to address the issue;
-
-Read log files Fix logs where error has been shown Locate concerned files Identify the current error (“deprecated and unused methods”) message Tried to update the methods whereas users were deferred on the backup server from the app file of 01:02 reset the whole app state to 01/02￼Enter
+By implementing these corrective measures and addressing the outlined tasks, we aim to prevent similar incidents in the future and ensure the reliability and stability of our services for our customers.
