@@ -1,26 +1,23 @@
 #!/usr/bin/python3
 '''
-Returns the number of subscribers for a give subrddit
+    this module contains the function number_of_subscribers
 '''
 import requests
+from sys import argv
 
 
 def number_of_subscribers(subreddit):
     '''
-    Return number of subreddit subscribers
+        returns the number of subscribers for a given subreddit
     '''
-    url = 'https://www.reddit.com/r/{}.json'.format(subreddit)
-    user_agent = 'reddit_user'
-
-    headers = {'User-Agent': user_agent}
-
-    req = requests.get(url, headers=headers, allow_redirects=False)
-
-    if req.status_code != 200:
+    user = {'User-Agent': 'Lizzie'}
+    url = requests.get('https://www.reddit.com/r/{}/about.json'
+                       .format(subreddit), headers=user).json()
+    try:
+        return url.get('data').get('subscribers')
+    except Exception:
         return 0
 
-    data = req.json()['data']
-    page_list = data['children']
-    page_data = page_list[0]['data']
 
-    return page_data['subreddit_subscribers']
+if __name__ == "__main__":
+    number_of_subscribers(argv[1])
