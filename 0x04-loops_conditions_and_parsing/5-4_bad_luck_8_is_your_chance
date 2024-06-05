@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
-# This script is  loops from 1 to 10 and bad luck for the 4th, good luck for the 8th and Best School for the other
-i=0
-while ((i < 10))
-do
-	((i++))
-	if [ $i -eq 4 ]
-	then
-		echo "bad luck"
-	elif [ $i -eq 8 ]
-	then
-		echo "good luck"
-	else
-		echo "Best School"
-	fi
-done
+# displays Best School 10 times.
 
+COUNTER=1
+while [ $COUNTER -lt 11 ]
+do
+    if [ $COUNTER = 4 ]
+    then
+        echo "bad luck"
+    elif [ $COUNTER = 8 ]
+    then
+        echo "good luck"
+    else
+        echo "Best School"
+    fi
+    ((COUNTER+=1))
+done

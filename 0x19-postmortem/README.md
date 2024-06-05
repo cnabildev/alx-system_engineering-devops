@@ -1,37 +1,29 @@
-# The Great Webocalypse: A Post-Mortem Comedy
+# 0x19. Postmortem - Practice Exercise
 
-![Webocalypse](https://example.com/pretty-diagram.jpg)
+This postmortem describes a fake issue and its resolution for the 0x17-web_stack_debugging project, created for practice purposes.
 
-## Introduction
+## Issue Summary
+Between 00:00 and 00:37 (10-06-2023, 12:11 am - 12:48 am GMT-1), all servers began returning a 500 error on all requests due to a recent server configuration update. The issue was caused by a mistyped reference in the WordPress settings file. The website was inaccessible to all users during the update.
 
-Ladies and gentlemen, gather around for a tale of triumph over technological tribulations! Picture this: a sunny day, birds chirping, and suddenly...the internet goes *kaput*! Yes, you heard it right. The Great Webocalypse of February 14, 2024, where our digital kingdom was plunged into darkness. But fear not, for with every outage comes a story, and boy, do we have a tale to tell!
+## Timeline
 
-## The Incident
+00:00 - A lead developer noticed the website was returning a 500 error.
 
-Picture the scene: the clock strikes 10:00 AM, and all heck breaks loose! Our monitoring systems lit up like Christmas trees with error alerts. It was as if our servers were throwing a tantrum, demanding attention. And attention they got! Our intrepid engineering team sprang into action faster than you can say "404 error".
+00:02 - Developer opened Ticket 0x19 and the servers were reverted to the most recent working change until the error was resolved to minimize downtime.
 
-## The Investigation
+00:06 - A response to the ticket was received from junior developer Scout Curry.
 
-Now, here's where the fun begins. Our brave detectives first suspected foul play in the database. "Perhaps the tables are turning against us!" they cried. But alas, the culprit was sneakier than a ninja in a library. Mischievous assumptions led us down rabbit holes of code changes gone awry. It was like searching for a needle in a stack overflow!
+00:10 - The `ps auxf` command showed that processes were running. Testing began by attaching `strace` to process IDs.
 
-## The Escalation
+00:25 - Attaching `strace` to the apache2 process and sending a simple GET request to the server led to a -1 ENOENT error in one of the PHP files referenced by `phpp`.
 
-With the situation escalating faster than a meme on Twitter, we called in the cavalry. The infrastructure team arrived with their capes (metaphorical, of course) and began sifting through load balancer logs like seasoned detectives on a mission.
+00:27 - Using grep in the file location, the `phpp` error was traced to the `wp-settings.php` file due to a mistyped reference.
 
-## The Revelation
+00:30 - A manual fix for the typo was made in the `wp-setting.php` file. After restarting Apache, the server returned a 200 code and displayed the correct website.
 
-And lo and behold, there it was, hidden in plain sight like Waldo in a crowd of tourists. A misconfiguration in the load balancer settings! One server hogging all the traffic like a kid with the last cookie. Mystery solved! But wait, it's not over yet...
+00:35 - A Puppet script using `sed` was created to remove the typo on all remaining servers. The script was run using `puppet apply`.
 
-## The Resolution
+00:37 - All servers were updated with the new change.
 
-With the precision of a surgeon wielding a scalpel, our team corrected the misconfigured settings faster than you can say "refresh". The load balancer was tamed, traffic redistributed, and like a phoenix rising from the ashes, our service was restored to its former glory!
-
-## The Aftermath
-
-But what now, you ask? Fear not, dear reader, for we've learned our lesson! We're beefing up our monitoring like a bodybuilder on protein shakes. We're tightening security like a bank vault after a heist. And we're conducting load tests like a crash test dummy on steroids!
-
-## Conclusion
-
-So there you have it, folks. The Great Webocalypse turned comedy of errors. But fear not, for through laughter and tears, we've emerged stronger, wiser, and with a darn good story to tell at the next company picnic. Until next time, stay connected, stay vigilant, and may your servers always be running like a well-oiled machine!
-
-*Stay tuned for the next episode of "Tech Tales: Adventures in the Digital Frontier!"*
+## Corrective/Preventative measures
+To prevent similar issues in the future, it is recommended to implement unit testing or pre-testing of code before pushing it to production. Alternatively, commit small changes in a way that allows change history to be easily reviewed on GitHub. This can help identify issues and prevent widespread downtime.

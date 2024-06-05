@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-#Script that display a list of the current process
-ps -aux --forest
+# Displays the current running processes, in a user-oriented format.
+
+ps -faux

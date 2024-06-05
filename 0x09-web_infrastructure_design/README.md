@@ -1,87 +1,75 @@
-# Web Infrastructure Design
+# 0x09-Web Infrastructure Design
 
-Project done during **Full Stack Software Engineering studies** at **ALX**. It aims to learn about how to design a Web Infrastructure.
+This repository holds different methods and strategies for designing scalable web infrastructures. The objective is to provide different approaches to web infrastructures, aiming to make it easier for developers to build reliable and scalable web solutions.
 
-## Key concepts
-* Network basics
-* Server
-* Web server
-* Application server
-* DNS & DNS record types
-* Load Balancer
-* Monitoring
-* Database
-* Single point of failure
-* HTTP & HTTPS
-* Firewall
+## Table of Contents
 
-## File Descriptions
+* [General Objectives](#general-objectives)
+* [Requirements](#requirements)
+* [Usage](#usage)
+* [Authors](#authors)
 
-Each file contains a link to an image hosted on Imgbox. These images are based on the following requirements: <br />
+## General Objectives
 
-### [0-simple_web_stack](0-simple_web_stack)
+The main objective of this repository is to provide a comprehensive guide to designing scalable and reliable web infrastructures. The content of this repository aims to give a clear understanding of the concepts and principles that are essential to building robust web infrastructures.
 
-On a whiteboard, design a one server web infrastructure that hosts the website that is reachable via `www.foobar.com.` Start your explanation by having a user wanting to access your website. <br />
+## Requirements
 
-You must use:
+To run any of the files or scripts in this repository, you will need:
 
-* 1 physical server
+* A Unix-like operating system (macOS, Ubuntu, Debian, etc.)
+* A shell terminal emulator
+* Docker installed and running
+* A basic understanding of networking, web servers, and databases
 
-* 1 web server (Nginx)
+## Usage
 
-* 1 application server
+This repository contains multiple directories, each with their own README.md file that provides an overview of the topics covered in the directory. Below you will find a list of each directory and a brief description of its content.
 
-* 1 application files (your code base)
+### [0-simple_web_stack](./0-simple_web_stack)
 
-* 1 database (MySQL)
+This directory contains an overview and basic architecture of a simple web stack. The web stack consists of a single server running a web application that serves static content. The directory also includes:
 
-* 1 domain name `foobar.com` configured with a `www` record that points to your server IP `8.8.8.8`
+* A visual representation of the web stack architecture
+* A list of tools and technologies used in the architecture
+* Instructions for setting up the web stack using Docker
 
-### [1-distributed_web_infrastructure](1-distributed_web_infrastructure)
+### [1-distributed_web_infrastructure](./1-distributed_web_infrastructure)
 
-On a whiteboard, design a three servers web infrastructure that host the website `www.foobar.com`. <br />
+This directory covers the architecture of a distributed web infrastructure. The architecture consists of multiple servers that are load-balanced and can handle increased traffic. The directory also includes:
 
-You must add to [0-simple_web_stack](0-simple_web_stack):
+* A visual representation of the distributed web infrastructure architecture
+* A list of tools and technologies used in the architecture
+* Instructions for setting up the infrastructure using Docker
 
-* 2 physical servers
+### [2-secured_and_monitored_web_infrastructure](./2-secured_and_monitored_web_infrastructure)
 
-* 1 web server (Nginx)
+This directory covers the architecture of a secured and monitored web infrastructure. The architecture includes multiple servers, load balancers, firewalls, and monitoring tools. The directory also includes:
 
-* 1 application server
+* A visual representation of the secured and monitored web infrastructure architecture
+* A list of tools and technologies used in the architecture
+* Instructions for setting up the infrastructure using Docker
 
-* 1 load-balancer (HAproxy)
+### [3-scale_up](./3-scale_up)
 
-* 1 application files (your code base)
+This directory covers the different strategies and technologies that can be used to scale up a web infrastructure. The directory includes:
 
-* 1 database (MySQL)
+* A list of scaling strategies
+* A brief overview of each scaling strategy
+* An explanation of when and how to use each scaling strategy
 
-### [2-secured_and_monitored_web_infrastructure](2-secured_and_monitored_web_infrastructure)
+## Authors
 
-On a whiteboard, design a three servers web infrastructure that host the website `www.foobar.com`, it must be secured, serve encrypted traffic and be monitored. <br />
+This repository was created by the ALX students:
 
-You must add to [1-distributed_web_infrastructure](1-distributed_web_infrastructure):
+* Brainstorma [@brainstorma](https://github.com/brainstorma)
+* Richard Ayeh [@Rayeh1](https://github.com/Rayeh1)
 
-* 3 firewalls
+# Extra Resources
 
-* 1 SSL certificate to serve `www.foobar.com` over HTTPS
-
-* 3 monitoring clients (data collector for Sumologic or other monitoring services)
-
-### [3-scale_up](3-scale_up)
-
-You must add to [2-secured_and_monitored_web_infrastructure](2-secured_and_monitored_web_infrastructure):
-
-* 1 physical server
-
-* 1 load-balancer (HAproxy) configured as cluster with the other one
-
-* Split components (web server, application server, database) with their own server
-
-## Files
-
-| Filename | Description |
-| -------- | ----------- |
-| [`0-simple_web_stack`](./0-simple_web_stack)  | Web Infrastructure Design with a LAMP stack. This contains: 1 server, 1 web server, 1 application server, 1 database and 1 domain name |
-| [`1-distributed_web_infrastructure`](./1-distributed_web_infrastructure) | Web Infrastructure Design, based on `0-simple_web_stack` that contains some additional components: 1 server, 1 web server, 1 application server, 1 load-balancer, 1 set of application files, 1 database |
-| [`2-secured_and_monitored_web_infrastructure`](2-secured_and_monitored_web_infrastructure) | Web Infrastructure Design, based on `1-distributed_web_infrastructure` that contains some additional components: 3 firewalls, 1 SSL certificate, 3 monitoring clients |
-| [`3-scale_up`](3-scale_up) | Web Infrastructure Design, based on `2-secured_and_monitored_web_infrastructure` that contains some additional components: 1 server, 1 load-balancer |
+* [High Scalability](http://highscalability.com/)
+* [AWS Architecture Center](https://aws.amazon.com/architecture/)
+* [Google Cloud Platform Architecture Center](https://cloud.google.com/solutions/architecture)
+* [Azure Architecture Center](https://docs.microsoft.com/en-us/azure/architecture/)
+* [Nginx documentation](https://docs.nginx.com/)
+* [Docker documentation](https://docs.docker.com/)

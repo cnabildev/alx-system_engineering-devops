@@ -1,19 +1,25 @@
-# SSH
+# 0x14-mysql
 
-In this project, I became familiar connecting to and working
-with servers using the SSH protocol. I worked on a server
-provided by ALX.
+This repository contains the solutions to the advanced tasks given in the "0x14-mysql" project.
 
-## Tasks :page_with_curl:
+## Tasks
 
-* **0. Use a private key**
-  * [0-use_a_private_key](./0-use_a_private_key): Bash script that uses `ssh` to connect to my
-Holberton-provided server.
+### [Task 0: Install MySQL](./0-install_mysql_configuration/)
+In this task, we installed and configured MySQL for our development environment.
 
-* **1. Create an SSH key pair**
-  * [1-create_ssh_key_pair](./1-create_ssh_key_pair): Bash script that creates an RSA key pair.
+### [Task 1: Let us in!](./1-temple/)
+Here, we created a MySQL user and granted it permissions to access the `hbtn_0d_0` database.
 
-* **2. Client configuration file**
-  * [2-ssh_config](./2-ssh_config): SSH configuration file configured to use the private key
-`~/.ssh/holberton` and to refuse authentication using a password.
+### [Task 2: If only you could see what I've seen with your eyes](./2-vulnerable_bulletin_board/)
+In this task, we performed a SQL injection attack on a vulnerable web application to extract sensitive information.
 
+### [Task 3: Quite an experience to live in fear, isn't it?](./3-safeguarding_sensitive_information/)
+Here, we implemented measures to safeguard sensitive information, including encryption and hashing.
+
+### [Task 4: Setup a Primary-Replica infrastructure using MySQL](./4-mysql_configuration_primary/)
+In this task, we set up a Primary-Replica infrastructure using MySQL to ensure high availability and load balancing.
+
+### [Task 5: MySQL backup](./5-mysql_backup/)
+Here, we implemented a backup and recovery strategy for our MySQL database in the event of data loss.
+
+All these tasks have helped us acquire advanced knowledge of MySQL and its configurations, security, and maintenance.
