@@ -1,5 +1,6 @@
-# Fix Nginx limits
-exec { 'Limit':
-  command => '/usr/bin/env sed -i s/15/2000/ /etc/default/nginx',
+# update rate limit
+
+exec { 'update_request_limit':
+  command  => 'sed -i "s|ULIMIT=\"-n 15\"|ULIMIT=\"-n 10000\"|" /etc/default/nginx && service nginx restart',
+  provider => 'shell',
 }
-exec { '/usr/bin/env service nginx restart': }

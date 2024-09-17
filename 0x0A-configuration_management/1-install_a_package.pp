@@ -1,5 +1,12 @@
-# Installs a package
-package { 'flask':
-  ensure   => '2.1.0',
-  provider => 'pip3'
+# Manifest version: 1.0.0
+# Author: AckimJnr
+# Description: Installs flass from pip3
+
+package{'flask':
+    ensure  => 'installed',
+    require => Exec['install-flask']
+}
+exec {
+    'install-flask':
+    command => '/usr/bin/pip3 install Flask==2.1.0'
 }

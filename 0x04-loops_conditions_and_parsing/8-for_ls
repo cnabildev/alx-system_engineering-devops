@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# displays the content of the current working directory.
+# print files without the '-' character
 
-for i in *
-do
-    echo "$i" | cut -d'-' -f2
+for file in *; do
+	name_without_dash=${file#*-}
+	echo "$name_without_dash"
 done

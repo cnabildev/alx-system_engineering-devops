@@ -1,29 +1,61 @@
-# 0x19. Postmortem - Practice Exercise
+# Account Creation Failure
 
-This postmortem describes a fake issue and its resolution for the 0x17-web_stack_debugging project, created for practice purposes.
+![Postmortem Img](account_creation_post_moterm.jpg)
 
-## Issue Summary
-Between 00:00 and 00:37 (10-06-2023, 12:11 am - 12:48 am GMT-1), all servers began returning a 500 error on all requests due to a recent server configuration update. The issue was caused by a mistyped reference in the WordPress settings file. The website was inaccessible to all users during the update.
+## Issue Summary:
+* **Duration of the Outage:** 48 hrs, from 06:00 AM, 19 January, - 06:00 AM, 21 January 2024 CAT
+* **Impact:** Users experienced a complete inability to create new accounts during the outage, affecting 20% of the user base.
+* **Root Cause:** Database connectivity issue due to a misconfigured firewall rule.
 
-## Timeline
+---
 
-00:00 - A lead developer noticed the website was returning a 500 error.
+## Timeline:
+* **19 January 2024:**
+  - **06:00 AM:** Issue detected through a surge in customer complaints.
+  - **06:15 AM:** Customer support escalates the issue to the engineering team.
 
-00:02 - Developer opened Ticket 0x19 and the servers were reverted to the most recent working change until the error was resolved to minimize downtime.
+* **Investigation:**
+  - **06:30 AM:** Initial assumption made that the application servers might be overloaded.
+  - **07:00 AM:** System logs reviewed, no indication of server overload.
+  - **07:30 AM:** Escalation to the database team as the issue seems database-related.
+  - **08:00 AM:** Database team investigates query performance, finds no anomalies.
 
-00:06 - A response to the ticket was received from junior developer Scout Curry.
+* **Misleading Paths:**
+  - **08:30 AM:** Consideration of a potential DDoS attack, leading to engagement with security team.
+  - **09:00 AM:** Security team rules out DDoS, focus returns to database issues.
 
-00:10 - The `ps auxf` command showed that processes were running. Testing began by attaching `strace` to process IDs.
+* **Escalation:**
+  - **09:30 AM:** Escalation to network infrastructure team as the database team suspects network issues.
+  - **10:00 AM:** Network team discovers a misconfigured firewall rule blocking database connections.
 
-00:25 - Attaching `strace` to the apache2 process and sending a simple GET request to the server led to a -1 ENOENT error in one of the PHP files referenced by `phpp`.
+* **Resolution:**
+  - **11:00 AM:** Firewall rule corrected, restoring database connectivity.
+  - **11:30 AM:** Account creation service verified as operational.
+  - **12:00 PM:** Public announcement of issue resolution.
 
-00:27 - Using grep in the file location, the `phpp` error was traced to the `wp-settings.php` file due to a mistyped reference.
+---
 
-00:30 - A manual fix for the typo was made in the `wp-setting.php` file. After restarting Apache, the server returned a 200 code and displayed the correct website.
+## Root Cause and Resolution:
+* **Root Cause:**
+  - A misconfigured firewall rule was blocking incoming connections to the database servers, preventing account creation.
 
-00:35 - A Puppet script using `sed` was created to remove the typo on all remaining servers. The script was run using `puppet apply`.
+* **Resolution:**
+  - The misconfigured firewall rule was corrected promptly by the network infrastructure team, restoring database connectivity and resolving the account creation issue.
 
-00:37 - All servers were updated with the new change.
+---
 
-## Corrective/Preventative measures
-To prevent similar issues in the future, it is recommended to implement unit testing or pre-testing of code before pushing it to production. Alternatively, commit small changes in a way that allows change history to be easily reviewed on GitHub. This can help identify issues and prevent widespread downtime.
+## Corrective and Preventative Measures:
+* **Improvements/Fixes:**
+  - **Firewall Configuration Review:** Implement a regular review process for firewall rules to catch and rectify misconfigurations promptly.
+  - **Monitoring Enhancement:** Enhance monitoring for database connectivity, ensuring early detection of similar issues in the future.
+  - **Incident Response Training:** Provide additional training to the support and engineering teams on efficient incident response protocols.
+
+* **Tasks to Address the Issue:**
+  - **Automate Firewall Audits:** Develop scripts or tools to automate regular firewall audits, flagging potential misconfigurations.
+  - **Enhance Monitoring Alerts:** Fine-tune monitoring systems to provide more specific alerts for database connectivity issues.
+  - **Regular Simulation Exercises:** Conduct periodic simulation exercises to train teams in responding to different types of incidents effectively.
+
+---
+
+## Conclusion:
+In conclusion, the 48-hour account creation outage stemmed from a misconfigured firewall rule blocking database connections. The incident detection and resolution timeline highlights the challenges in pinpointing the root cause and the importance of collaborative problem-solving across different teams. Implementing corrective measures, including automated firewall audits and enhanced monitoring, aims to prevent similar issues in the future, ensuring a more robust and resilient system.

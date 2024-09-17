@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Displays listening ports. Includes listening sockets as well
-# + as the PID and name of the program to which each socket belongs.
+# pings a given IP address 5 times
 
-netstat -l --program
+netstat -p
+netstat -a
